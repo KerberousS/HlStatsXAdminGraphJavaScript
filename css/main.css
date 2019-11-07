@@ -1,0 +1,93 @@
+html, body {
+  height: 100%;
+}
+
+body {
+  background-color: #4f4f4f;
+}
+
+#app {
+  height: 100%;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-align: center;
+  align-items: center;
+  padding-top: 40px;
+  padding-bottom: 40px;
+  margin: auto;
+  text-align: center;
+}
+
+.text-color-white {
+  color: white;
+}
+
+.form-signin, .form-control {
+  width: 100%;
+  max-width: 330px;
+  padding: 15px;
+  margin: auto;
+  color: white;
+  display: none;
+  border-color: #FF3300;
+}
+.form-signin .ds-button, .form-control .ds-button {
+  background-color: #FF3300;
+  display: block;
+  width: 100%;
+  color: white;
+  font-size: 1.25rem;
+  padding: 0.5rem 1rem;
+  border-radius: 0.3rem;
+  border: 1px solid #FF3300;
+}
+.form-signin .ds-button:hover, .form-control .ds-button:hover {
+  background-color: #e6532e;
+  border-color: #e6532e;
+}
+.form-signin input, .form-control input {
+  border: 1px solid #FF3300;
+  border-radius: 10px;
+  margin-top: 10px;
+  color: black;
+  transition: 0.5s;
+}
+.form-signin input::placeholder, .form-control input::placeholder {
+  /* Chrome, Firefox, Opera, Safari 10.1+ */
+  color: lightgray;
+  opacity: 1;
+  /* Firefox */
+}
+.form-signin input[type=text], .form-control input[type=text] {
+  margin-bottom: -1px;
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+}
+.form-signin input[type=text]:active, .form-control input[type=text]:active {
+  z-index: 3;
+}
+.form-signin input[type=password], .form-control input[type=password] {
+  margin-bottom: 10px;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+.form-signin a, .form-control a {
+  font-weight: bold;
+  color: #5495f7;
+  transition: 0.5s;
+  text-decoration: none;
+}
+.form-signin a:active, .form-signin a:hover, .form-control a:active, .form-control a:hover {
+  color: #78a1de;
+}
+.form-signin .ds-alert, .form-control .ds-alert {
+  color: #FF3300;
+  font-weight: bold;
+  background: none;
+  display: flex;
+  text-align: center;
+  height: 50px;
+  opacity: 0;
+}
+
+/*# sourceMappingURL=main.css.map */

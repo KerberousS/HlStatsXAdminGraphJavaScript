@@ -1,0 +1,27 @@
+{
+  "name": "adminsgraph",
+  "version": "1.0.0",
+  "description": "",
+  "main": "js/main.js",
+  "dependencies": {
+    "animejs": "^3.1.0",
+    "browserify": "^16.5.0",
+    "chart": "^0.1.2",
+    "express": "^4.17.1",
+    "jquery": "^3.4.1",
+    "jsonfile": "^5.0.0",
+    "moment": "^2.24.0",
+    "moment-range": "^4.0.2",
+    "nedb": "^1.8.0",
+    "node-fetch": "^2.6.0",
+    "request": "^2.88.0",
+    "require": "^2.4.20",
+    "vue": "^2.6.10"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Kerberous",
+  "license": "ISC"
+}

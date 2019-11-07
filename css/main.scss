@@ -1,0 +1,107 @@
+$dark-gray-color: #4f4f4f;
+$ds-orange: #FF3300;
+$ds-orange2: #e6532e;
+
+$link-normal-blue: #5495f7;
+$link-light-blue: #78a1de;
+
+html, body {
+    height: 100%;
+}
+
+body {
+    background-color: $dark-gray-color;
+}
+
+#app {
+    height: 100%;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-align: center;
+    align-items: center;
+    padding-top: 40px;
+    padding-bottom: 40px;
+    margin: auto;
+    text-align: center;
+}
+
+.text-color-white {
+    color: white;
+}
+
+.form-signin, .form-control {
+    width: 100%;
+    max-width: 330px;
+    padding: 15px;
+    margin: auto;
+    color: white; 
+    display:none;
+
+    border-color: $ds-orange;
+
+    .ds-button {
+        background-color: $ds-orange;
+        display: block;
+        width: 100%;
+        color: white;
+        font-size: 1.25rem;
+        padding: 0.5rem 1rem;
+        border-radius: 0.3rem;
+        border: 1px solid $ds-orange;
+
+        &:hover {
+            background-color: $ds-orange2;
+            border-color: $ds-orange2;
+        }
+    }
+
+    input {
+        border: 1px solid $ds-orange;
+        border-radius: 10px;
+        margin-top: 10px;
+        color: black;
+        transition: 0.5s;
+
+        &::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+            color: lightgray;
+            opacity: 1; /* Firefox */
+          }
+    }
+
+    input[type="text"] {
+        margin-bottom: -1px;
+        border-bottom-right-radius: 0;
+        border-bottom-left-radius: 0;
+
+        &:active {
+            z-index: 3;
+        }
+    }
+
+    input[type="password"] {
+        margin-bottom: 10px;
+        border-top-left-radius: 0;
+        border-top-right-radius: 0;
+    }
+
+    a {
+        font-weight: bold;
+        color: $link-normal-blue;
+        transition: 0.5s;
+        text-decoration: none;
+
+        &:active, &:hover {
+            color: $link-light-blue;
+        }
+    }
+
+    .ds-alert {
+        color: $ds-orange;
+        font-weight: bold;
+        background: none;
+        display:flex;
+        text-align: center;
+        height:50px;
+        opacity: 0;
+    }
+}

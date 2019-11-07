@@ -1,0 +1,35 @@
+$dark-gray-color: #4f4f4f;
+$ds-orange: #FF3300;
+$ds-orange2: #e6532e;
+
+$link-normal-blue: #5495f7;
+$link-light-blue: #78a1de;
+
+html, body {
+    height: 100%;
+}
+
+body {
+    background-color: $dark-gray-color;
+}
+
+#app {
+    height: 100%;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-align: center;
+    align-items: center;
+    padding-top: 40px;
+    padding-bottom: 40px;
+    margin: auto;
+    text-align: center;
+}
+
+.text-color-white {
+    color: white;
+}
+
+select.form-control, label {
+    padding: 0;
+    color: black;
+}

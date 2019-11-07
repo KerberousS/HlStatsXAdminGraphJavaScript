@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="DS">
+  <title>Test Site</title>
+
+  <!-- Bootstrap core CSS -->
+  <link href="css/bootstrap.min.css" rel="stylesheet">
+  <link href="css/chart.css" rel="stylesheet">
+
+<body>
+  <!-- Modal -->
+<div class="modal fade" id="serverModal" tabindex="-1" role="dialog" aria-labelledby="serverModal" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="serverModalLabel"></h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Save changes</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Add loading bar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand mr-4" href="#">HlStatsX Chart</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+      
+        <div class="collapse navbar-collapse ml-4" id="navbarSupportedContent">
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Manage Servers
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <button id="addServer" class="dropdown-item" data-toggle="modal" data-target="#serverModal">Add a new server</a>
+                <button class="dropdown-item" data-toggle="modal" data-target="#serverModal">Edit current server</a>
+                <button class="dropdown-item" data-toggle="modal" data-target="#serverModal">Delete current server</a>
+              </div>
+            </li>
+          </ul>
+          <div class="input-group w-25">
+              <div class="input-group-prepend">
+                <label class="input-group-text" for="serverSelect">Select Server:</label>
+              </div>
+              <select class="custom-select" id="serverSelect">
+              </select>
+            </div>
+            <div class="input-group w-25 ml-4">
+                <div class="input-group-prepend">
+                  <label class="input-group-text" for="chartStyleSelect">Select Chart Style:</label>
+                </div>
+                <select class="custom-select" id="chartStyleSelect">
+                  <option selected>Line</option>
+                  <option>Bar</option>
+                  <option>Pie</option>
+                </select>
+              </div>
+              <li class="nav-item nav-link ml-4">
+                <a href="#">Logout</a>
+              </li>
+        </div>
+      </nav>
+
+      <div style="position:relative;margin:auto;height:90vh;width:90vw;margin-top:5vh">
+          <canvas id="myChart"></canvas>
+      </div>
+
+        <div class="table-responsive">
+          <table class="table table-striped table-sm text-color-white">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Color</th>
+                <th>Name</th>
+                <th>Total time played</th>
+                <th>Edit</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>1</td>
+                <td>Blue: TODO ADD GRAPHICAL</td>
+                <td>Test Admin</td>
+                <td>0d 1h 36m 24s</td>
+                <td>Click to edit</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </main>
+    </div>
+  </div>
+</body>
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="js/chart.js"></script>
+
+</html>

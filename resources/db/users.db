@@ -1,0 +1,3 @@
+{"username":"basic","password":"basic","permissions":"admin","servers":{"server":{"name":"default","permissions":"rw"}},"_id":"cJFs3Ta4618ZIM52"}
+{"username":"superuser","password":"superuser","permissions":"admin","servers":{"server":{"name":"default","permissions":"rw"}},"_id":"jICcTEZZUCHuH6ux"}
+{"$$indexCreated":{"fieldName":"username","unique":true,"sparse":false}}

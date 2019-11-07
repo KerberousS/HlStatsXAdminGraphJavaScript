@@ -1,0 +1,30 @@
+html, body {
+  height: 100%;
+}
+
+body {
+  background-color: #4f4f4f;
+}
+
+#app {
+  height: 100%;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-align: center;
+  align-items: center;
+  padding-top: 40px;
+  padding-bottom: 40px;
+  margin: auto;
+  text-align: center;
+}
+
+.text-color-white {
+  color: white;
+}
+
+select.form-control, label {
+  padding: 0;
+  color: black;
+}
+
+/*# sourceMappingURL=chart.css.map */
