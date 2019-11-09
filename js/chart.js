@@ -27,52 +27,79 @@ addServerButton.addEventListener("click", () => {
   $(modalBodyTextElement).empty();
 
   var serverNameElement = '<label for="server_name">Server name:</label>' +
-      '<input type="text" name="server_name" placeholder="My new server" class="form-control">'
+    '<input type="text" name="server_name" placeholder="My new server" class="form-control">'
 
   var serverAddressElement = '<label for="server_address">Server name:</label>' +
-      '<input type="text" name="server_address" placeholder="https://baseserver.hlstatsx.com" class="form-control">'
+    '<input type="text" name="server_address" placeholder="https://baseserver.hlstatsx.com" class="form-control">'
 
   var serverSessionpathElement = '<label for="server_address">Session path:</label>' +
-      '<div class="input-group-append">' +
-      '<input type="text" disabled="disabled" name="server_sessionpath" placeholder="hlstats.php?mode=playersessions&player=" class="form-control">' +
-      '<button type="button" style="font-size:10px;" class="btn btn-dark">Click to edit sessionpath</button>' +
-      '</div>'
+    '<div class="input-group-append">' +
+    '<input type="text" disabled="disabled" name="server_sessionpath" value="hlstats.php?mode=playersessions&player=" placeholder="hlstats.php?mode=playersessions&player=" class="form-control">' +
+    '<button type="button" id="enableSessionPathEdit" style="width:15%; font-size:8px; padding:0; font-weight:bold;" class="btn btn-dark">Edit Sessionpath</button>' +
+    '</div>'
 
   $(modalBodyTextElement).append(serverNameElement);
   $(modalBodyTextElement).append(serverAddressElement);
   $(modalBodyTextElement).append(serverSessionpathElement);
+
+  var enableSessionPathEditButton = document.getElementById('enableSessionPathEdit');
+  var sessionPathInput = document.getElementsByName('server_sessionpath');
+  enableSessionPathEditButton.addEventListener("click", () => {
+    $(sessionPathInput).prop('disabled', function (i, v) { 
+      if (v) {
+        $(enableSessionPathEditButton).text('Cancel');
+      } else {
+        $(enableSessionPathEditButton).text('Edit Sessionpath');
+      }
+      return !v; });
+  });
 });
 
 editServerButton.addEventListener("click", () => {
-  $(modalHeaderTextElement).text('Edit server "' + serverSelect.value()) +'"';
+  $(modalHeaderTextElement).text('Edit server "' + serverSelect.value + '"');
   $(modalBodyTextElement).empty();
 
   var serverNameElement = '<label for="server_name">Server name:</label>' +
-      '<input type="text" name="server_name" placeholder="Server name" class="form-control">'
+    '<input type="text" name="server_name" value="' + currentServer.sname + '" placeholder="My new server" class="form-control">'
 
   var serverAddressElement = '<label for="server_address">Server name:</label>' +
-      '<input type="text" name="server_address" placeholder="https://baseserver.hlstatsx.com" class="form-control">'
+    '<input type="text" name="server_address" value="' + currentServer.address + '" placeholder="https://baseserver.hlstatsx.com" class="form-control">'
 
-  var serverSessionpathElement = '<label for="server_address">Server name:</label>' +
-      '<input type="text" name="server_address" placeholder="https://baseserver.hlstatsx.com" class="form-control">'
+  var serverSessionpathElement = '<label for="server_address">Session path:</label>' +
+    '<div class="input-group-append">' +
+    '<input type="text" disabled="disabled" name="server_sessionpath" value="' + currentServer.sessionPath + '" placeholder="hlstats.php?mode=playersessions&player=" class="form-control">' +
+    '<button type="button" id="enableSessionPathEdit" style="width:15%; font-size:8px; padding:0; font-weight:bold;" class="btn btn-dark">Edit Sessionpath</button>' +
+    '</div>'
 
   $(modalBodyTextElement).append(serverNameElement);
   $(modalBodyTextElement).append(serverAddressElement);
   $(modalBodyTextElement).append(serverSessionpathElement);
+
+  var enableSessionPathEditButton = document.getElementById('enableSessionPathEdit');
+  var sessionPathInput = document.getElementsByName('server_sessionpath');
+  enableSessionPathEditButton.addEventListener("click", () => {
+    $(sessionPathInput).prop('disabled', function (i, v) { 
+      if (v) {
+        $(enableSessionPathEditButton).text('Cancel');
+      } else {
+        $(enableSessionPathEditButton).text('Edit Sessionpath');
+      }
+      return !v; });
+  });
 });
 
 deleteServerButton.addEventListener("click", () => {
   $(modalHeaderTextElement).text('Are you sure?');
-  $(modalBodyTextElement).text('Are you sure you want to delete server x?');
+  $(modalBodyTextElement).text('Are you sure you want to delete server "' + currentServer.sname + '"?');
 });
 
 
-serverSelect.addEventListener("change", function() {
+serverSelect.addEventListener("change", () => {
   console.log('updating chart')
-  for (i=0; i<servers.length; i++) {v
-    currentServer = serverSelect.value;
-    if (server[i].sname==currentServer) {
-      updateChart(server[i].admins);
+  for (i = 0; i < servers.length; i++) {
+    if (servers[i].sname == serverSelect.value) {
+      currentServer = servers[i];
+      updateChart(servers[i].admins);
       break;
     }
   }
@@ -83,19 +110,20 @@ getData();
 
 //Data functions
 function addServerSelectOption(servername) {
-	var newSelectHTML = "<option>" + servername + "</option>";
-	$(serverSelect).append(newSelectHTML);
+  var newSelectHTML = "<option>" + servername + "</option>";
+  $(serverSelect).append(newSelectHTML);
+  serverSelect.dispatchEvent(new Event('change'));
 }
 
 function updateChart(chart, admins) {
   chart.data.labels = [];
   chart.data.datasets = [];
 
-  for (i=0; i<admins[0].dats.length; i++) {
+  for (i = 0; i < admins[0].dats.length; i++) {
     chart.data.labels.push(admins[0].dats[i][0]);
   }
 
-  for (i2=0; i2<admins.length; i2++) {
+  for (i2 = 0; i2 < admins.length; i2++) {
     chart.data.datasets.push(createAdminData(admins[i2]));
   }
 
@@ -106,7 +134,7 @@ function createAdminData(admin) {
   var times = [];
   var timetotal = 0;
 
-  for (i=0; i<admin.dats.length; i++) {
+  for (i = 0; i < admin.dats.length; i++) {
     times.push(admin.dats[i][1]);
     timetotal += admin.dats[i][1];
   }
@@ -144,7 +172,7 @@ let myChart = new Chart(ctx, { //Creating basic chart so it can get updated late
       backgroundColor: 'rgba(0, 0, 255, 0.2)',
       borderColor: 'rgba(0, 0, 255, 1)',
     },
-  ]
+    ]
   },
   options: {
     scales: {
@@ -180,10 +208,10 @@ function getCookieValue(cookieName) {
 }
 
 function getCookieCredetentials() {
-  
+
   const credentials = {
-    username:getCookieValue('username'),
-    password:getCookieValue('password')
+    username: getCookieValue('username'),
+    password: getCookieValue('password')
   }
 
   return credentials;
@@ -204,23 +232,22 @@ async function getData() {
   }
 
   await fetch('/servers', options).then(response => response.json())
-  .then(json => {
-    console.log(json);
-    if (json.status=='failure') {
-      showErrorMessage(json.message);
-    } else if (json.status=='success') {
-	  console.log(json.length);
+    .then(json => {
+      console.log(json);
+      if (json.status == 'failure') {
+        showErrorMessage(json.message);
+      } else if (json.status == 'success') {
+        console.log(json.length);
+        servers = json.serverList;
+        for (i = 0; i < json.serverList.length; i++) {
+          addServerSelectOption(json.serverList[i].sname);
+          updateChart(myChart, json.serverList[i].admins); //TODO: FIX
+        }
 
-	  for (i=0; i<json.serverList.length; i++)
-	  {
-      addServerSelectOption(json.serverList[i].sname);
-      updateChart(myChart, json.serverList[i].admins); //TODO: FIX
-    }
-
-    } else {
-      showErrorMessage('Unknown error');
-    }
-  });
+      } else {
+        showErrorMessage('Unknown error');
+      }
+    });
 }
 
 //Animation functions
@@ -240,13 +267,13 @@ function showErrorMessage(text) {
     opacity: 1
   }, 1000);
 
-  setTimeout(function(){
+  setTimeout(function () {
     $(".ds-alert").animate({
       opacity: 0
     }, 1000);
-}, 8000);
+  }, 8000);
 
-  setTimeout(function(){
+  setTimeout(function () {
     $(".ds-alert").text("");
-}, 9000);
+  }, 9000);
 }
