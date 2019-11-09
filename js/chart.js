@@ -5,8 +5,14 @@ const chart = require("chart");
 //Elements
 var ctx = document.getElementById('myChart').getContext('2d');
 var serverSelect = document.getElementById('serverSelect');
+//Modal Elements
+var modalHeaderTextElement = document.getElementsByClassName('modal-header');
+var modalBodyTextElement = document.getElementsByClassName('modal-body');
 //Buttons
-var addAdminButton = document.getElementById
+var addServerButton = document.getElementById('addServer');
+var editServerButton = document.getElementById('editServer');
+var deleteServerButton = document.getElementById('deleteServer');
+
 
 //Data
 var servers;
@@ -16,10 +22,51 @@ var currentServer;
 animateChart();
 
 //Listeners
-// loginButton.addEventListener("click", (event) => {
-//   event.preventDefault();
-//   postLogin();
-// });
+addServerButton.addEventListener("click", () => {
+  $(modalHeaderTextElement).text('Add new server');
+  $(modalBodyTextElement).empty();
+
+  var serverNameElement = '<label for="server_name">Server name:</label>' +
+      '<input type="text" name="server_name" placeholder="My new server" class="form-control">'
+
+  var serverAddressElement = '<label for="server_address">Server name:</label>' +
+      '<input type="text" name="server_address" placeholder="https://baseserver.hlstatsx.com" class="form-control">'
+
+  var serverSessionpathElement = '<label for="server_address">Session path:</label>' +
+      '<div class="input-group-append">' +
+      '<input type="text" disabled="disabled" name="server_sessionpath" placeholder="hlstats.php?mode=playersessions&player=" class="form-control">' +
+      '<button type="button" style="font-size:10px;" class="btn btn-dark">Click to edit sessionpath</button>' +
+      '</div>'
+
+  $(modalBodyTextElement).append(serverNameElement);
+  $(modalBodyTextElement).append(serverAddressElement);
+  $(modalBodyTextElement).append(serverSessionpathElement);
+});
+
+editServerButton.addEventListener("click", () => {
+  $(modalHeaderTextElement).text('Edit server "' + serverSelect.value()) +'"';
+  $(modalBodyTextElement).empty();
+
+  var serverNameElement = '<label for="server_name">Server name:</label>' +
+      '<input type="text" name="server_name" placeholder="Server name" class="form-control">'
+
+  var serverAddressElement = '<label for="server_address">Server name:</label>' +
+      '<input type="text" name="server_address" placeholder="https://baseserver.hlstatsx.com" class="form-control">'
+
+  var serverSessionpathElement = '<label for="server_address">Server name:</label>' +
+      '<input type="text" name="server_address" placeholder="https://baseserver.hlstatsx.com" class="form-control">'
+
+  $(modalBodyTextElement).append(serverNameElement);
+  $(modalBodyTextElement).append(serverAddressElement);
+  $(modalBodyTextElement).append(serverSessionpathElement);
+});
+
+deleteServerButton.addEventListener("click", () => {
+  $(modalHeaderTextElement).text('Are you sure?');
+  $(modalBodyTextElement).text('Are you sure you want to delete server x?');
+});
+
+
 serverSelect.addEventListener("change", function() {
   console.log('updating chart')
   for (i=0; i<servers.length; i++) {v
@@ -36,7 +83,7 @@ getData();
 
 //Data functions
 function addServerSelectOption(servername) {
-	var newSelectHTML = "<option>" + servername + "</option";
+	var newSelectHTML = "<option>" + servername + "</option>";
 	$(serverSelect).append(newSelectHTML);
 }
 
