@@ -6,46 +6,125 @@ const chart = require("chart");
 //Elements
 var ctx = document.getElementById('myChart').getContext('2d');
 var serverSelect = document.getElementById('serverSelect');
-serverSelect.addEventListener("change", function() {
-  console.log('updating chart')
-  for (i=0; i<servers.length; i++) {v
-    var chosenServer = serverSelect.value;
-    if (server[i].sname==chosenServer) {
-      updateChart(server[i].admins);
-      break;
-    }
-  }
-});
+//Modal Elements
+var modalHeaderTextElement = document.getElementsByClassName('modal-header');
+var modalBodyTextElement = document.getElementsByClassName('modal-body');
+//Buttons
+var addServerButton = document.getElementById('addServer');
+var editServerButton = document.getElementById('editServer');
+var deleteServerButton = document.getElementById('deleteServer');
+
 
 //Data
 var servers;
+var currentServer;
 
 //Animation functions
 animateChart();
 
 //Listeners
-// loginButton.addEventListener("click", (event) => {
-//   event.preventDefault();
-//   postLogin();
-// });
+addServerButton.addEventListener("click", () => {
+  $(modalHeaderTextElement).text('Add new server');
+  $(modalBodyTextElement).empty();
 
+  var serverNameElement = '<label for="server_name">Server name:</label>' +
+    '<input type="text" name="server_name" placeholder="My new server" class="form-control">'
+
+  var serverAddressElement = '<label for="server_address">Server name:</label>' +
+    '<input type="text" name="server_address" placeholder="https://baseserver.hlstatsx.com" class="form-control">'
+
+  var serverSessionpathElement = '<label for="server_address">Session path:</label>' +
+    '<div class="input-group-append">' +
+    '<input type="text" disabled="disabled" name="server_sessionpath" value="hlstats.php?mode=playersessions&player=" placeholder="hlstats.php?mode=playersessions&player=" class="form-control">' +
+    '<button type="button" id="enableSessionPathEdit" style="width:15%; font-size:8px; padding:0; font-weight:bold;" class="btn btn-dark">Edit Sessionpath</button>' +
+    '</div>'
+
+  $(modalBodyTextElement).append(serverNameElement);
+  $(modalBodyTextElement).append(serverAddressElement);
+  $(modalBodyTextElement).append(serverSessionpathElement);
+
+  var enableSessionPathEditButton = document.getElementById('enableSessionPathEdit');
+  var sessionPathInput = document.getElementsByName('server_sessionpath');
+  enableSessionPathEditButton.addEventListener("click", () => {
+    $(sessionPathInput).prop('disabled', function (i, v) { 
+      if (v) {
+        $(enableSessionPathEditButton).text('Cancel');
+      } else {
+        $(enableSessionPathEditButton).text('Edit Sessionpath');
+      }
+      return !v; });
+  });
+});
+
+editServerButton.addEventListener("click", () => {
+  $(modalHeaderTextElement).text('Edit server "' + serverSelect.value + '"');
+  $(modalBodyTextElement).empty();
+
+  var serverNameElement = '<label for="server_name">Server name:</label>' +
+    '<input type="text" name="server_name" value="' + currentServer.sname + '" placeholder="My new server" class="form-control">'
+
+  var serverAddressElement = '<label for="server_address">Server name:</label>' +
+    '<input type="text" name="server_address" value="' + currentServer.address + '" placeholder="https://baseserver.hlstatsx.com" class="form-control">'
+
+  var serverSessionpathElement = '<label for="server_address">Session path:</label>' +
+    '<div class="input-group-append">' +
+    '<input type="text" disabled="disabled" name="server_sessionpath" value="' + currentServer.sessionPath + '" placeholder="hlstats.php?mode=playersessions&player=" class="form-control">' +
+    '<button type="button" id="enableSessionPathEdit" style="width:15%; font-size:8px; padding:0; font-weight:bold;" class="btn btn-dark">Edit Sessionpath</button>' +
+    '</div>'
+
+  $(modalBodyTextElement).append(serverNameElement);
+  $(modalBodyTextElement).append(serverAddressElement);
+  $(modalBodyTextElement).append(serverSessionpathElement);
+
+  var enableSessionPathEditButton = document.getElementById('enableSessionPathEdit');
+  var sessionPathInput = document.getElementsByName('server_sessionpath');
+  enableSessionPathEditButton.addEventListener("click", () => {
+    $(sessionPathInput).prop('disabled', function (i, v) { 
+      if (v) {
+        $(enableSessionPathEditButton).text('Cancel');
+      } else {
+        $(enableSessionPathEditButton).text('Edit Sessionpath');
+      }
+      return !v; });
+  });
+});
+
+deleteServerButton.addEventListener("click", () => {
+  $(modalHeaderTextElement).text('Are you sure?');
+  $(modalBodyTextElement).text('Are you sure you want to delete server "' + currentServer.sname + '"?');
+});
+
+
+serverSelect.addEventListener("change", () => {
+  console.log('updating chart')
+  for (i = 0; i < servers.length; i++) {
+    if (servers[i].sname == serverSelect.value) {
+      currentServer = servers[i];
+      updateChart(servers[i].admins);
+      break;
+    }
+  }
+});
+
+//Start functions
 getData();
 
 //Data functions
 function addServerSelectOption(servername) {
-	var newSelectHTML = "<option>" + servername + "</option";
-	$(serverSelect).append(newSelectHTML);
+  var newSelectHTML = "<option>" + servername + "</option>";
+  $(serverSelect).append(newSelectHTML);
+  serverSelect.dispatchEvent(new Event('change'));
 }
 
 function updateChart(chart, admins) {
   chart.data.labels = [];
   chart.data.datasets = [];
 
-  for (i=0; i<admins[0].dats.length; i++) {
+  for (i = 0; i < admins[0].dats.length; i++) {
     chart.data.labels.push(admins[0].dats[i][0]);
   }
 
-  for (i2=0; i2<admins.length; i2++) {
+  for (i2 = 0; i2 < admins.length; i2++) {
     chart.data.datasets.push(createAdminData(admins[i2]));
   }
 
@@ -56,7 +135,7 @@ function createAdminData(admin) {
   var times = [];
   var timetotal = 0;
 
-  for (i=0; i<admin.dats.length; i++) {
+  for (i = 0; i < admin.dats.length; i++) {
     times.push(admin.dats[i][1]);
     timetotal += admin.dats[i][1];
   }
@@ -72,7 +151,7 @@ function createAdminData(admin) {
 }
 
 Chart.defaults.global.defaultFontColor = 'white';
-let myChart = new Chart(ctx, {
+let myChart = new Chart(ctx, { //Creating basic chart so it can get updated later
   type: 'line',
   data: {
     labels: ['test 2019-01-01', '2019-01-02', '2019-01-03'],
@@ -94,7 +173,7 @@ let myChart = new Chart(ctx, {
       backgroundColor: 'rgba(0, 0, 255, 0.2)',
       borderColor: 'rgba(0, 0, 255, 1)',
     },
-  ]
+    ]
   },
   options: {
     scales: {
@@ -130,10 +209,10 @@ function getCookieValue(cookieName) {
 }
 
 function getCookieCredetentials() {
-  
+
   const credentials = {
-    username:getCookieValue('username'),
-    password:getCookieValue('password')
+    username: getCookieValue('username'),
+    password: getCookieValue('password')
   }
 
   return credentials;
@@ -154,23 +233,22 @@ async function getData() {
   }
 
   await fetch('/servers', options).then(response => response.json())
-  .then(json => {
-    console.log(json);
-    if (json.status=='failure') {
-      showErrorMessage(json.message);
-    } else if (json.status=='success') {
-	  console.log(json.length);
+    .then(json => {
+      console.log(json);
+      if (json.status == 'failure') {
+        showErrorMessage(json.message);
+      } else if (json.status == 'success') {
+        console.log(json.length);
+        servers = json.serverList;
+        for (i = 0; i < json.serverList.length; i++) {
+          addServerSelectOption(json.serverList[i].sname);
+          updateChart(myChart, json.serverList[i].admins); //TODO: FIX
+        }
 
-	  for (i=0; i<json.serverList.length; i++)
-	  {
-      addServerSelectOption(json.serverList[i].sname);
-      updateChart(myChart, json.serverList[i].admins); //TODO: FIX
-    }
-
-    } else {
-      showErrorMessage('Unknown error');
-    }
-  });
+      } else {
+        showErrorMessage('Unknown error');
+      }
+    });
 }
 
 //Animation functions
@@ -190,15 +268,15 @@ function showErrorMessage(text) {
     opacity: 1
   }, 1000);
 
-  setTimeout(function(){
+  setTimeout(function () {
     $(".ds-alert").animate({
       opacity: 0
     }, 1000);
-}, 8000);
+  }, 8000);
 
-  setTimeout(function(){
+  setTimeout(function () {
     $(".ds-alert").text("");
-}, 9000);
+  }, 9000);
 }
 },{"chart":2,"jquery":11}],2:[function(require,module,exports){
 var lib = require('./lib');
